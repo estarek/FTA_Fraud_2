@@ -394,6 +394,8 @@ def plot_feature_importance(feature_importances, feature_names):
             fig = go.Figure()
             fig.add_annotation(
                 text=f"Feature importance length ({len(feature_importances)}) doesn't match feature names length ({len(feature_names)})",
+                print(feature_names)
+                print(feature_importances)
                 xref="paper", yref="paper",
                 x=0.5, y=0.5, showarrow=False
             )
