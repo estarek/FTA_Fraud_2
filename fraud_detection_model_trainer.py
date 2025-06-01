@@ -125,9 +125,10 @@ def engineer_features(df):
         "seller_number_of_employees", "seller_tax_compliance_score",
         # Seller categorical features
         "seller_sector", "seller_business_size", "seller_legal_entity_type", "seller_ownership_type",
-        "seller_bank_country",
-        # Anomaly type itself (can be used if detecting known patterns is the goal)
-        "anomaly_type" 
+        "seller_bank_country"
+        #,
+        ## Anomaly type itself (can be used if detecting known patterns is the goal)
+        #"anomaly_type" 
     ]
     
     # Add time-based features if datetime columns are valid
@@ -154,6 +155,10 @@ def engineer_features(df):
     valid_features = [f for f in features if f in df.columns]
     X = df[valid_features].copy()
     print(f"Selected {len(valid_features)} features: {valid_features}")
+    # ADDED: Extra check to ensure anomaly_type is not in features
+    if "anomaly_type" in valid_features:
+        valid_features.remove("anomaly_type")
+        print("WARNING: 'anomaly_type' was found in features and has been removed to prevent data leakage.")
 
     # --- Encoding Categorical Features ---
     categorical_features = X.select_dtypes(include="object").columns
